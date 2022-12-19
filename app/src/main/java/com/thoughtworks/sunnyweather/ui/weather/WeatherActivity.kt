@@ -1,4 +1,4 @@
-package com.thoughtworks.sunnyweather
+package com.thoughtworks.sunnyweather.ui.weather
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,17 +12,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.thoughtworks.sunnyweather.databinding.ActivityWeatherBinding
+import com.thoughtworks.sunnyweather.R
 import com.thoughtworks.sunnyweather.logic.model.Weather
 import com.thoughtworks.sunnyweather.logic.model.getSky
-import com.thoughtworks.sunnyweather.ui.weather.WeatherViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class WeatherActivity : AppCompatActivity() {
     val viewModel by lazy { ViewModelProvider(this).get(WeatherViewModel::class.java) }
-//    private val _binding = ActivityWeatherBinding.inflate(layoutInflater)
-//    val binding = _binding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
@@ -55,20 +53,19 @@ class WeatherActivity : AppCompatActivity() {
         placeName.text = viewModel.placeName
         val realtime = weather.realtime
         val daily = weather.daily
-
         //now.xml
         val currentTemp = findViewById<TextView>(R.id.currentTemp)
         val currentSky = findViewById<TextView>(R.id.currentSky)
         val currentAQI = findViewById<TextView>(R.id.currentAQI)
         val nowLayout = findViewById<RelativeLayout>(R.id.nowLayout)
-
         val currentTempText = "${realtime.temperature.toInt()}"
         currentTemp.text = currentTempText
         currentSky.text = getSky(realtime.skycon).info
-        val currentPM25Text = "空气指数 ${realtime.airQuality.api.chn.toInt()}"
-        currentAQI.text = currentPM25Text
+        realtime.airQuality.api.let {
+            val currentPM25Text = "Air Quality ${realtime.airQuality.api.chn.toInt()}"
+            currentAQI.text = currentPM25Text
+        }
         nowLayout.setBackgroundResource(getSky(realtime.skycon).bg)
-
         //forecast.xml
         val forecastLayout = findViewById<LinearLayout>(R.id.forecastLayout)
         forecastLayout.removeAllViews()
@@ -87,11 +84,10 @@ class WeatherActivity : AppCompatActivity() {
             val sky = getSky(skycon.value)
             skyIcon.setImageResource(sky.icon)
             skyInfo.text = sky.info
-            val tempText = "${temperature.min.toInt()} ~ ${temperature.max.toInt()} C"
+            val tempText = "${temperature.min} ~ ${temperature.max} C"
             temperatureInfo.text = tempText
             forecastLayout.addView(view)
         }
-
         //life index
         val lifeIndex = daily.lifeIndex
         val coldRiskText = findViewById<TextView>(R.id.coldRiskText)
@@ -102,8 +98,7 @@ class WeatherActivity : AppCompatActivity() {
         ultravioletText.text = lifeIndex.ultraviolet[0].desc
         val carWashingText = findViewById<TextView>(R.id.carWashingText)
         carWashingText.text = lifeIndex.carWashing[0].desc
-        val weatherLayout  = findViewById<ScrollView>(R.id.weatherLayout)
+        val weatherLayout = findViewById<ScrollView>(R.id.weatherLayout)
         weatherLayout.visibility = View.VISIBLE
-
     }
 }

@@ -1,8 +1,7 @@
 package com.thoughtworks.sunnyweather.logic.model
 
-import android.nfc.tech.MifareUltralight
 import com.google.gson.annotations.SerializedName
-import java.sql.Date
+import java.util.*
 
 data class DailyResponse(val status: String, val result: Result) {
     data class Result(val daily: Daily)

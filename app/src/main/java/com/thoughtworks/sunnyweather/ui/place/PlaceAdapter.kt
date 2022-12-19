@@ -8,9 +8,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.thoughtworks.sunnyweather.R
-import com.thoughtworks.sunnyweather.WeatherActivity
+import com.thoughtworks.sunnyweather.ui.weather.WeatherActivity
 import com.thoughtworks.sunnyweather.logic.model.Place
-import com.thoughtworks.sunnyweather.logic.model.Weather
 
 
 class PlaceAdapter(private val fragment: Fragment, private val placeList: List<Place>) :
@@ -44,7 +43,6 @@ class PlaceAdapter(private val fragment: Fragment, private val placeList: List<P
         holder.placeName.text = place.name
         holder.placeAddress.text = place.address.toString()
     }
-
 
     override fun getItemCount() = placeList.size
 }

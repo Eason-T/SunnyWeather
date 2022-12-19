@@ -5,22 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.thoughtworks.sunnyweather.R
 import com.thoughtworks.sunnyweather.databinding.FragmentPlaceBinding
 
 class PlaceFragment : Fragment() {
     val viewModel by lazy { ViewModelProvider(this).get(PlaceViewModel::class.java) }
     private var _binding: FragmentPlaceBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: PlaceAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,

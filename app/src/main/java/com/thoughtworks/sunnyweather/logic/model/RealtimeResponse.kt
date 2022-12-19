@@ -1,6 +1,5 @@
 package com.thoughtworks.sunnyweather.logic.model
 
-import androidx.core.location.LocationRequestCompat.Quality
 import com.google.gson.annotations.SerializedName
 
 data class RealtimeResponse(val status: String, val result: Result) {
