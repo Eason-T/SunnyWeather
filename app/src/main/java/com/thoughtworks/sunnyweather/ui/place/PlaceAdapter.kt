@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.thoughtworks.sunnyweather.R
-import com.thoughtworks.sunnyweather.ui.weather.WeatherActivity
 import com.thoughtworks.sunnyweather.logic.model.Place
+import com.thoughtworks.sunnyweather.ui.weather.WeatherActivity
 
 
 class PlaceAdapter(private val fragment: Fragment, private val placeList: List<Place>) :
@@ -25,7 +25,7 @@ class PlaceAdapter(private val fragment: Fragment, private val placeList: List<P
             .inflate(R.layout.place_item, parent, false)
         val holder = ViewHolder(view)
         holder.itemView.setOnClickListener {
-            val postion = holder.adapterPosition
+            val postion = holder.bindingAdapterPosition
             val place = placeList[postion]
             val intent = Intent(parent.context, WeatherActivity::class.java).apply {
                 putExtra("location_lng", place.location.lng)

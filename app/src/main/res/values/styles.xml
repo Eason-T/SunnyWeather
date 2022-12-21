@@ -1,7 +1,5 @@
 <resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
 
-    <style name="Widget.Theme.SunnyWeather.ButtonBar.Fullscreen" parent="">
-        <item name="android:background">@color/black_overlay</item>
-        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
 </resources>

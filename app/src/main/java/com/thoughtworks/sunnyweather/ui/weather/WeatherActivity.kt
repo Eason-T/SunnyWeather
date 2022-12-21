@@ -1,15 +1,10 @@
 package com.thoughtworks.sunnyweather.ui.weather
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.ScrollView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.thoughtworks.sunnyweather.R
@@ -61,7 +56,7 @@ class WeatherActivity : AppCompatActivity() {
         val currentTempText = "${realtime.temperature.toInt()}"
         currentTemp.text = currentTempText
         currentSky.text = getSky(realtime.skycon).info
-        realtime.airQuality.api.let {
+        realtime.airQuality.api?.let {
             val currentPM25Text = "Air Quality ${realtime.airQuality.api.chn.toInt()}"
             currentAQI.text = currentPM25Text
         }
