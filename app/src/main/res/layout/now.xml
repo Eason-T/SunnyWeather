@@ -10,6 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="70dp">
 
+        <Button
+            android:id="@+id/navigationButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/ic_home" />
+
         <TextView
             android:id="@+id/placeName"
             android:layout_width="wrap_content"
@@ -47,14 +55,6 @@
                 android:id="@+id/currentSky"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:text="|"
                 android:textColor="#fff"
                 android:textSize="18sp" />
 

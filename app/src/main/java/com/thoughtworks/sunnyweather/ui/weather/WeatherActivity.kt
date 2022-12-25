@@ -1,14 +1,19 @@
 package com.thoughtworks.sunnyweather.ui.weather
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.thoughtworks.sunnyweather.R
+import com.thoughtworks.sunnyweather.databinding.ActivityWeatherBinding
 import com.thoughtworks.sunnyweather.logic.model.Weather
 import com.thoughtworks.sunnyweather.logic.model.getSky
 import java.text.SimpleDateFormat
@@ -16,13 +21,31 @@ import java.util.*
 
 class WeatherActivity : AppCompatActivity() {
     val viewModel by lazy { ViewModelProvider(this).get(WeatherViewModel::class.java) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_weather)
+        val binding = ActivityWeatherBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val swipeRefresh = binding.swipeRefresh
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         actionBar?.hide()
-
+        val navigationButton = findViewById<Button>(R.id.navigationButton)
+        navigationButton.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
+        binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
+            override fun onDrawerStateChanged(newState: Int) {}
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
+            override fun onDrawerOpened(drawerView: View) {}
+            override fun onDrawerClosed(drawerView: View) {
+                val manager = getSystemService(Context.INPUT_METHOD_SERVICE)
+                        as InputMethodManager
+                manager.hideSoftInputFromWindow(
+                    drawerView.windowToken,
+                    InputMethodManager.HIDE_NOT_ALWAYS
+                )
+            }
+        })
         if (viewModel.locationLng.isEmpty()) {
             viewModel.locationLng = intent.getStringExtra("location_lng") ?: ""
         }
@@ -33,7 +56,6 @@ class WeatherActivity : AppCompatActivity() {
             viewModel.placeName = intent.getStringExtra("place_name") ?: ""
         }
 
-        val swipeRefresh = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
         viewModel.weatherLiveData.observe(this, Observer { result ->
             val weather = result.getOrNull()
             if (weather != null) {
