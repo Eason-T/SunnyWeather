@@ -6,22 +6,22 @@ import androidx.lifecycle.ViewModel
 import com.thoughtworks.sunnyweather.logic.Repository
 import com.thoughtworks.sunnyweather.logic.model.Place
 
-class PlaceViewModel : ViewModel() {
+class PlaceViewModel constructor(private val repository: Repository) : ViewModel() {
     private val searchLiveData = MutableLiveData<String>()
 
     val placeList = ArrayList<Place>()
 
     val placeLiveData = Transformations.switchMap(searchLiveData) { query ->
-        Repository.searchPlaces(query)
+        repository.searchPlaces(query)
     }
 
     fun searchPlaces(query: String) {
         searchLiveData.value = query
     }
 
-    fun savePlace(place: Place) = Repository.savePlace(place)
+    fun savePlace(place: Place) = repository.savePlace(place)
 
-    fun getSavedPlace() = Repository.getSavedPlace()
+    fun getSavedPlace() = repository.getSavedPlace()
 
-    fun isPlaceSaved() = Repository.isPlaceSaved()
+    fun isPlaceSaved() = repository.isPlaceSaved()
 }

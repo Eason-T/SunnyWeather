@@ -28,11 +28,14 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
             val place = placeList[postion]
             val activity = fragment.activity
             if (activity is WeatherActivity) {
-                activity.findViewById<DrawerLayout>(R.id.drawerLayout).closeDrawers()
-                activity.viewModel.locationLng = place.location.lng
-                activity.viewModel.locationLat = place.location.lat
-                activity.viewModel.placeName = place.name
-                activity.refreshWeather(swipeRefresh = activity.findViewById(R.id.swipeRefresh))
+                activity.apply {
+                    findViewById<DrawerLayout>(R.id.drawerLayout).closeDrawers()
+                    viewModel.locationLng = place.location.lng
+                    viewModel.locationLat = place.location.lat
+                    viewModel.placeName = place.name
+                    refreshWeather(swipeRefresh = findViewById(R.id.swipeRefresh))
+                }
+
             } else {
                 val intent = Intent(parent.context, WeatherActivity::class.java).apply {
                     putExtra("location_lng", place.location.lng)

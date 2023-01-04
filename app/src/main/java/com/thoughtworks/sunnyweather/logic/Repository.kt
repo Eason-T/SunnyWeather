@@ -2,6 +2,8 @@ package com.thoughtworks.sunnyweather.logic
 
 import androidx.lifecycle.liveData
 import com.thoughtworks.sunnyweather.logic.dao.PlaceDao
+import com.thoughtworks.sunnyweather.logic.datasource.PlaceDataSource
+import com.thoughtworks.sunnyweather.logic.datasource.WeatherDataSource
 import com.thoughtworks.sunnyweather.logic.model.Place
 import com.thoughtworks.sunnyweather.logic.model.Weather
 import com.thoughtworks.sunnyweather.logic.network.SunnyWeatherNetwork
@@ -9,7 +11,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
-object Repository {
+class Repository constructor(
+    val placeDataSource: PlaceDataSource,
+    val weatherDataSource: WeatherDataSource
+) {
+
+    fun searchPlace(placeDataSource: PlaceDataSource){
+        return placeDataSource.searchPlace()
+    }
+
+    fun refreshWeather1(weatherDataSource: WeatherDataSource){
+        return weatherDataSource.getWeather()
+    }
     fun searchPlaces(query: String) = liveData(Dispatchers.IO) {
         val result = try {
             val placeResponse = SunnyWeatherNetwork.searchPlaces(query)
