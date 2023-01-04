@@ -11,18 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
-class Repository constructor(
-    val placeDataSource: PlaceDataSource,
-    val weatherDataSource: WeatherDataSource
-) {
-
-    fun searchPlace(placeDataSource: PlaceDataSource,query: String){
-        return placeDataSource.searchPlace(query)
-    }
-
-    fun refreshWeather1(weatherDataSource: WeatherDataSource){
-        return weatherDataSource.getWeather()
-    }
+object Repository{
     fun searchPlaces(query: String) = liveData(Dispatchers.IO) {
         val result = try {
             val placeResponse = SunnyWeatherNetwork.searchPlaces(query)
