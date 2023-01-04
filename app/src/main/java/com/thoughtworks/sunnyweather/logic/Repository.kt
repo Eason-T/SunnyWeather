@@ -16,8 +16,8 @@ class Repository constructor(
     val weatherDataSource: WeatherDataSource
 ) {
 
-    fun searchPlace(placeDataSource: PlaceDataSource){
-        return placeDataSource.searchPlace()
+    fun searchPlace(placeDataSource: PlaceDataSource,query: String){
+        return placeDataSource.searchPlace(query)
     }
 
     fun refreshWeather1(weatherDataSource: WeatherDataSource){
