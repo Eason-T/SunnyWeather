@@ -1,15 +1,16 @@
 package com.thoughtworks.sunnyweather.ui.weather
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.thoughtworks.sunnyweather.R
@@ -21,6 +22,8 @@ import java.util.*
 
 class WeatherActivity : AppCompatActivity() {
     val viewModel by lazy { ViewModelProvider(this).get(WeatherViewModel::class.java) }
+
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityWeatherBinding.inflate(layoutInflater)
@@ -28,7 +31,6 @@ class WeatherActivity : AppCompatActivity() {
 
         val swipeRefresh = binding.swipeRefresh
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        actionBar?.hide()
         val navigationButton = findViewById<Button>(R.id.navigationButton)
         navigationButton.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
@@ -56,7 +58,7 @@ class WeatherActivity : AppCompatActivity() {
             viewModel.placeName = intent.getStringExtra("place_name") ?: ""
         }
 
-        viewModel.weatherLiveData.observe(this, Observer { result ->
+        viewModel.weatherLiveData.observe(this) { result ->
             val weather = result.getOrNull()
             if (weather != null) {
                 showWeatherInfo(weather)
@@ -65,7 +67,7 @@ class WeatherActivity : AppCompatActivity() {
                 result.exceptionOrNull()?.printStackTrace()
             }
             swipeRefresh.isRefreshing = false
-        })
+        }
         swipeRefresh.setColorSchemeResources(R.color.teal_200)
         refreshWeather(swipeRefresh)
         swipeRefresh.setOnRefreshListener {
@@ -88,7 +90,7 @@ class WeatherActivity : AppCompatActivity() {
         val currentSky = findViewById<TextView>(R.id.currentSky)
         val currentAQI = findViewById<TextView>(R.id.currentAQI)
         val nowLayout = findViewById<RelativeLayout>(R.id.nowLayout)
-        val currentTempText = "${realtime.temperature.toInt()}"
+        val currentTempText = "${realtime.temperature.toInt()}°C"
         currentTemp.text = currentTempText
         currentSky.text = getSky(realtime.skycon).info
         realtime.airQuality.api?.let {
@@ -114,7 +116,7 @@ class WeatherActivity : AppCompatActivity() {
             val sky = getSky(skycon.value)
             skyIcon.setImageResource(sky.icon)
             skyInfo.text = sky.info
-            val tempText = "${temperature.min} ~ ${temperature.max} C"
+            val tempText = "${temperature.min} ~ ${temperature.max}°C"
             temperatureInfo.text = tempText
             forecastLayout.addView(view)
         }
