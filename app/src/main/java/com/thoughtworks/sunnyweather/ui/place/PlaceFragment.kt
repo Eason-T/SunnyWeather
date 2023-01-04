@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,17 +51,25 @@ class PlaceFragment : Fragment() {
             recyclerView.layoutManager = layoutManager
             recyclerView.adapter = adapter
 
-            searchPlaceEdit.addTextChangedListener { editable ->
-                val content = editable.toString()
-                if (content.isNotEmpty()) {
-                    viewModel.searchPlaces(content)
-                } else {
-                    recyclerView.visibility = View.GONE
-                    bgImageView.visibility = View.VISIBLE
-                    viewModel.placeList.clear()
-                    adapter.notifyDataSetChanged()
+            searchPlaceEdit.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    val content = p0.toString()
+                    if (content.isNotEmpty()) {
+                        viewModel.searchPlaces(content)
+                    } else {
+                        recyclerView.visibility = View.GONE
+                        bgImageView.visibility = View.VISIBLE
+                        viewModel.placeList.clear()
+                        adapter.notifyDataSetChanged()
+                    }
+                    return true
                 }
-            }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    return false
+                }
+            })
+
             viewModel.placeLiveData.observe(viewLifecycleOwner) { result ->
                 val place = result.getOrNull()
                 if (place != null) {
