@@ -1,6 +1,5 @@
 package com.thoughtworks.sunnyweather.ui.place
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,7 +28,7 @@ class PlaceFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = PlaceAdapter(this, viewModel.placeList)
@@ -52,20 +51,20 @@ class PlaceFragment : Fragment() {
             recyclerView.adapter = adapter
 
             searchPlaceEdit.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(p0: String?): Boolean {
-                    val content = p0.toString()
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    val content = query.toString()
                     if (content.isNotEmpty()) {
                         viewModel.searchPlaces(content)
                     } else {
                         recyclerView.visibility = View.GONE
                         bgImageView.visibility = View.VISIBLE
                         viewModel.placeList.clear()
-                        adapter.notifyDataSetChanged()
+                        adapter.notifyDataSetChanged() //todo refactor
                     }
                     return true
                 }
 
-                override fun onQueryTextChange(p0: String?): Boolean {
+                override fun onQueryTextChange(query: String?): Boolean {
                     return false
                 }
             })

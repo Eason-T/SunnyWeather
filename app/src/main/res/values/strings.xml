@@ -5,4 +5,5 @@
     <string name="promptText">输入地址</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="searchText">搜索</string>
 </resources>

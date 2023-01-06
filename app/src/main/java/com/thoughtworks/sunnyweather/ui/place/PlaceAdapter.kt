@@ -11,7 +11,6 @@ import com.thoughtworks.sunnyweather.R
 import com.thoughtworks.sunnyweather.logic.model.Place
 import com.thoughtworks.sunnyweather.ui.weather.WeatherActivity
 
-
 class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: List<Place>) :
     RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
