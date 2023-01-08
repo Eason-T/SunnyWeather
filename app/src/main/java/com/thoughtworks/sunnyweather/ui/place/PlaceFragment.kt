@@ -15,7 +15,7 @@ import com.thoughtworks.sunnyweather.databinding.FragmentPlaceBinding
 import com.thoughtworks.sunnyweather.ui.weather.WeatherActivity
 
 class PlaceFragment : Fragment() {
-    val viewModel by lazy { ViewModelProvider(this).get(PlaceViewModel::class.java) }
+    val viewModel by lazy { ViewModelProvider(this)[PlaceViewModel::class.java] }
     private var _binding: FragmentPlaceBinding? = null
     private val binding get() = _binding!!
 

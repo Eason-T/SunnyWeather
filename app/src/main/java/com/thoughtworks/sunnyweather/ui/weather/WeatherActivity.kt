@@ -15,14 +15,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.thoughtworks.sunnyweather.R
 import com.thoughtworks.sunnyweather.databinding.ActivityWeatherBinding
-import com.thoughtworks.sunnyweather.databinding.NowBinding
 import com.thoughtworks.sunnyweather.logic.model.Weather
 import com.thoughtworks.sunnyweather.logic.model.getSky
 import java.text.SimpleDateFormat
 import java.util.*
 
 class WeatherActivity : AppCompatActivity() {
-    val viewModel by lazy { ViewModelProvider(this).get(WeatherViewModel::class.java) }
+    val viewModel by lazy { ViewModelProvider(this)[WeatherViewModel::class.java] }
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
