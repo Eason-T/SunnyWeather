@@ -6,8 +6,8 @@ import com.thoughtworks.sunnyweather.logic.network.SunnyWeatherNetwork
 import kotlinx.coroutines.Dispatchers
 
 class PlaceDataSource {
-    fun searchPlace(query: String){
-         liveData(Dispatchers.IO) {
+    fun searchPlace(query: String) =
+        liveData(Dispatchers.IO) {
             val result = try {
                 val placeResponse = SunnyWeatherNetwork.searchPlaces(query)
                 if (placeResponse.status == "ok") {
@@ -21,5 +21,4 @@ class PlaceDataSource {
             }
             emit(result)
         }
-    }
 }

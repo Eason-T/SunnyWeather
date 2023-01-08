@@ -5,14 +5,16 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.thoughtworks.sunnyweather.logic.Repository
 import com.thoughtworks.sunnyweather.logic.model.Place
+import com.thoughtworks.sunnyweather.logic.repo.PlaceRepo
 
 class PlaceViewModel : ViewModel() {
     private val searchLiveData = MutableLiveData<String>()
+    private val placeRepo = PlaceRepo()
 
     val placeList = ArrayList<Place>()
 
     val placeLiveData = Transformations.switchMap(searchLiveData) { query ->
-        Repository.searchPlaces(query)
+        placeRepo.getPlace(query)
     }
 
     fun searchPlaces(query: String) {
