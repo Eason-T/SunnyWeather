@@ -4,7 +4,6 @@ import com.thoughtworks.sunnyweather.logic.datasource.PlaceDataSource
 
 class PlaceRepo {
     private val placeDataSource = PlaceDataSource()
-    fun getPlace(query: String) =
-        placeDataSource.searchPlace(query)
 
+    fun getPlace(query: String) = placeDataSource.searchPlace(query)
 }
