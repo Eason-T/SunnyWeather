@@ -3,7 +3,6 @@ package com.thoughtworks.sunnyweather.ui.place
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.thoughtworks.sunnyweather.logic.Repository
 import com.thoughtworks.sunnyweather.logic.model.Place
 import com.thoughtworks.sunnyweather.logic.repo.PlaceRepo
 
@@ -21,9 +20,9 @@ class PlaceViewModel : ViewModel() {
         searchLiveData.value = query
     }
 
-    fun savePlace(place: Place) = Repository.savePlace(place)
+    fun savePlace(place: Place) = placeRepo.savePlace(place)
 
-    fun getSavedPlace() = Repository.getSavedPlace()
+    fun getSavedPlace() = placeRepo.getSavedPlace()
 
-    fun isPlaceSaved() = Repository.isPlaceSaved()
+    fun isPlaceSaved() = placeRepo.isPlaceSaved()
 }
