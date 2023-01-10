@@ -19,6 +19,6 @@ class PlaceDataSource {
             } catch (e: Exception) {
                 Result.failure<List<Place>>(e)
             }
-            emit(result)
+            emit(result) //todo emit?
         }
 }

@@ -10,7 +10,7 @@ object PlaceDao {
 
     fun savePlace(place: Place) {
         sharedPreferences().edit {
-            putString("place", Gson().toJson(place))
+            putString("place", Gson().toJson(place))//todo why use json
         }
     }
 
@@ -22,6 +22,6 @@ object PlaceDao {
     fun isPlaceSaved() = sharedPreferences().contains("place")
 
     private fun sharedPreferences() =
-        SunnyWeatherApplication.context.getSharedPreferences("sunny_weather", Context.MODE_PRIVATE)
+        SunnyWeatherApplication.context.getSharedPreferences("sunny_weather", Context.MODE_PRIVATE) //todo deterrent with context and activity
 
 }

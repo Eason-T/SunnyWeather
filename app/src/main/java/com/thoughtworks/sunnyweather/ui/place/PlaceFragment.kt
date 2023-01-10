@@ -16,8 +16,8 @@ import com.thoughtworks.sunnyweather.ui.weather.WeatherActivity
 
 class PlaceFragment : Fragment() {
     val viewModel by lazy { ViewModelProvider(this)[PlaceViewModel::class.java] }
-    private var _binding: FragmentPlaceBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var _binding: FragmentPlaceBinding
+    private val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +43,7 @@ class PlaceFragment : Fragment() {
             }
             startActivity(intent)
             activity?.finish()
-            return
+            return //todo
         }
 
         binding.apply {
@@ -88,6 +88,5 @@ class PlaceFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

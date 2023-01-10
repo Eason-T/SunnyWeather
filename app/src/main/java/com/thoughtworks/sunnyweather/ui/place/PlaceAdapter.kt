@@ -34,7 +34,6 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
                     viewModel.placeName = place.name
                     refreshWeather(swipeRefresh = findViewById(R.id.swipeRefresh))
                 }
-
             } else {
                 val intent = Intent(parent.context, WeatherActivity::class.java).apply {
                     putExtra("location_lng", place.location.lng)

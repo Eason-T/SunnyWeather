@@ -10,6 +10,8 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -30,7 +32,9 @@ class WeatherActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val swipeRefresh = binding.swipeRefresh
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        val controller = WindowCompat.getInsetsController(window,binding.root)
+
+//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         val navigationButton = findViewById<Button>(R.id.navigationButton)
         navigationButton.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
@@ -104,8 +108,7 @@ class WeatherActivity : AppCompatActivity() {
         for (i in 0 until days) {
             val skycon = daily.skycon[i]
             val temperature = daily.temperature[i]
-            val view =
-                LayoutInflater.from(this).inflate(R.layout.forecast_item, forecastLayout, false)
+            val view = LayoutInflater.from(this).inflate(R.layout.forecast_item, forecastLayout, false)
             val dateInfo = view.findViewById<TextView>(R.id.dateInfo)
             val skyInfo = view.findViewById<TextView>(R.id.skyInfo)
             val skyIcon = view.findViewById<ImageView>(R.id.skyIcon)
