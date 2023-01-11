@@ -46,8 +46,5 @@ class WeatherFragment : Fragment() {
             weatherRecyclerView.adapter = adapter
         }
 
-
-
-
     }
 }

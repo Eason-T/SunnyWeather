@@ -83,10 +83,5 @@ class PlaceFragment : Fragment() {
                 }
             }
         }
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 }
