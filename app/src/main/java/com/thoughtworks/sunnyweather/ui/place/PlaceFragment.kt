@@ -43,7 +43,6 @@ class PlaceFragment : Fragment() {
             }
             startActivity(intent)
             activity?.finish()
-            return //todo
         }
 
         binding.apply {
@@ -59,7 +58,7 @@ class PlaceFragment : Fragment() {
                         recyclerView.visibility = View.GONE
                         bgImageView.visibility = View.VISIBLE
                         viewModel.placeList.clear()
-                        adapter.notifyDataSetChanged() //todo refactor
+                        adapter.notifyDataSetChanged()
                     }
                     return true
                 }

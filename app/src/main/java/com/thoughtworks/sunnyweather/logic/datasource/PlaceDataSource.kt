@@ -1,7 +1,6 @@
 package com.thoughtworks.sunnyweather.logic.datasource
 
 import androidx.lifecycle.liveData
-import com.thoughtworks.sunnyweather.logic.model.Place
 import com.thoughtworks.sunnyweather.logic.network.SunnyWeatherNetwork
 import kotlinx.coroutines.Dispatchers
 
@@ -17,8 +16,8 @@ class PlaceDataSource {
                     Result.failure(RuntimeException("response status is ${placeResponse.status}"))
                 }
             } catch (e: Exception) {
-                Result.failure<List<Place>>(e)
+                Result.failure(e)
             }
-            emit(result) //todo emit?
+            emit(result)
         }
 }

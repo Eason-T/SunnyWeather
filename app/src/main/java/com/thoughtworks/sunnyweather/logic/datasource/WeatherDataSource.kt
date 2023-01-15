@@ -14,7 +14,7 @@ class WeatherDataSource {
             coroutineScope {
                 val deferredRealtime = async {
                     SunnyWeatherNetwork.getRealtimeWeather(lng, lat)
-                }  ///todo async?
+                }
                 val deferredDaily = async {
                     SunnyWeatherNetwork.getDailyWeather(lng, lat)
                 }

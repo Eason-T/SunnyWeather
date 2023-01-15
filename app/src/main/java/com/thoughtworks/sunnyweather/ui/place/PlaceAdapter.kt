@@ -1,6 +1,7 @@
 package com.thoughtworks.sunnyweather.ui.place
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,18 +22,19 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.place_item, parent, false)
+        Log.d("onCreateViewHolder","onCreateViewHolder")
         val holder = ViewHolder(view)
         holder.itemView.setOnClickListener {
             val position = holder.bindingAdapterPosition
             val place = placeList[position]
             val activity = fragment.activity
-            if (activity is WeatherActivity) {
+            if (activity is WeatherActivity) { //todo 讲清楚
                 activity.apply {
                     findViewById<DrawerLayout>(R.id.drawerLayout).closeDrawers()
                     viewModel.locationLng = place.location.lng
                     viewModel.locationLat = place.location.lat
                     viewModel.placeName = place.name
-                    refreshWeather(swipeRefresh = findViewById(R.id.swipeRefresh))
+                    refreshWeather(swipeRefresh = findViewById(R.id.swipeRefresh))//todo 讲清楚
                 }
             } else {
                 val intent = Intent(parent.context, WeatherActivity::class.java).apply {
@@ -45,16 +47,13 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
             }
             fragment.viewModel.savePlace(place)
         }
-//        holder.itemView.setOnClickListener {
-//            fragment.viewModel.navigateToWeather()
-//        }
         return holder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val place = placeList[position]
         holder.placeName.text = place.name
-        holder.placeAddress.text = place.address.toString()
+        holder.placeAddress.text = place.address
     }
 
     override fun getItemCount() = placeList.size
