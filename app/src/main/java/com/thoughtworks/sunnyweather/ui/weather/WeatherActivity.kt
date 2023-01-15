@@ -32,11 +32,7 @@ class WeatherActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val swipeRefresh = binding.swipeRefresh
-        val controller = WindowCompat.getInsetsController(window,binding.root)
-
-//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        val navigationButton = findViewById<Button>(R.id.navigationButton)
-        navigationButton.setOnClickListener {
+        binding.nowLayout.navigationButton.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
         binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
