@@ -28,7 +28,7 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
             val position = holder.bindingAdapterPosition
             val place = placeList[position]
             val activity = fragment.activity
-            if (activity is WeatherActivity) { //todo 讲清楚
+            if (activity is WeatherActivity) { //todo onclick interface
                 activity.apply {
                     findViewById<DrawerLayout>(R.id.drawerLayout).closeDrawers()
                     viewModel.locationLng = place.location.lng
@@ -58,3 +58,4 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
 
     override fun getItemCount() = placeList.size
 }
+interface onItemClick

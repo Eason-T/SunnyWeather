@@ -68,12 +68,12 @@ class PlaceFragment : Fragment() {
                 }
             })
 
-            viewModel.placeLiveData.observe(viewLifecycleOwner) { result ->
+            viewModel.placeLiveData.observe(viewLifecycleOwner) { result -> //todo
                 val place = result.getOrNull()
                 if (place != null) {
                     recyclerView.visibility = View.VISIBLE
                     bgImageView.visibility = View.GONE
-                    viewModel.placeList.clear()
+                    viewModel.placeList.clear() //todo viewModel
                     viewModel.placeList.addAll(place)
                     adapter.notifyDataSetChanged()
                 } else {
